@@ -35,3 +35,21 @@ last2(X,L):-append2(_,[X],L).
 % length2(L, N)
 length2([],0).
 length2([_|T], N):- length2(T,M), N is M+1.
+
+% Обръщане на списък
+% reverse2(L, RL)
+reverse2(L,RL):-reverse2(L,[],RL).
+reverse2([],Buff,Buff).
+reverse2([H|T],Buff,R):-reverse2(T,[H|Buff], R).
+
+% Префикс на списък
+% prefix2(P, L)
+prefix2(P,L):-append2(P,_,L).
+
+% Суфикс на списък
+% sufix2(S, L)
+sufix2(S, L):-append2(_,S,L).
+
+% Инфикс на списък
+% infix2(I, L)
+infix2(I, L):-sufix2(S,L),prefix2(I,S).
