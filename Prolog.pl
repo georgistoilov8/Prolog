@@ -72,3 +72,13 @@ permutation2([H|T],R):-permutation2(T, Q),insert2(H,Q,R).
 isSorted2([]).
 isSorted2([_].
 isSorted2([A,B|T]):-A=<B,isSorted2([B|T]).
+
+% Бързо сортиране
+% partition2(Pivot, List, LL, RL)
+% quicksort(L, R)
+partition2(_,[],[],[]).
+partition2(Pivot,[H|T],[H|LL], RL):-H<Pivot,partition2(Pivot,T,LL,RL).
+partition2(Pivot,[H|T],LL,[H|RL]):-H>=Pivot,partition2(Pivot,T,LL,RL).
+
+quicksort([],[]).
+quicksort(L,R):-L=[H|T],partition2(H,T,LT,RT),quicksort(LT,LR),quicksort(RT,RR),append2(LR, [H|RR], R).
