@@ -92,3 +92,16 @@ subset2([_|T],R):-subset2(T,R).
 % nthElement(X,Idx,List)
 nthElement(X,0,[X|_]).
 nthElement(X,N,[_|T]):-nthElement(X,M,T),N is M + 1.
+
+% Обединение, сечение, разлика, подмножество,, равенство
+inUnion2(X,A,B):-member2(X,A);member2(X,B).
+inIntersection2(X,A,B):-member2(X,A),member2(X,B).
+isDifference(X,A,B):-member2(X,A),not(member2(X,B)).
+isSubsetOf(A,B):-not((member2(X,A), not(member(X,B)))).
+isEqual(A,B):-isSubsetOf(A,B),isSubsetOf(B,A).
+
+% Премахване на повтарящи се елементи
+% removeDuplicates(L, R)
+removeDuplicates([],[]).
+removeDuplicates([H|T],[H|R]:-removeDuplicates(T,R),not(member2(H,R)).
+removeDuplicates([H|T], R):-removeDuplicates(T,R),member2(H,R).
