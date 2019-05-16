@@ -53,3 +53,22 @@ sufix2(S, L):-append2(_,S,L).
 % Инфикс на списък
 % infix2(I, L)
 infix2(I, L):-sufix2(S,L),prefix2(I,S).
+
+% Добавяне на елемент
+% insert2(X,L,NL)
+insert2(X,L,NL):-append2(A,B,L),append2(A,[X|B],NL).
+
+% Премахване на елемент
+% remove2(X,L,NL)
+remove2(X,L,NL):-append2(A,[X|B],L),append2(A,B,NL).
+
+% Пермутация на списък
+% permutation2(L,R)
+permutation2([],[]).
+permutation2([H|T],R):-permutation2(T, Q),insert2(H,Q,R).
+
+% Сортиран ли е даден списък
+% isSorted2(L)
+isSorted2([]).
+isSorted2([_].
+isSorted2([A,B|T]):-A=<B,isSorted2([B|T]).
