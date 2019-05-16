@@ -82,3 +82,13 @@ partition2(Pivot,[H|T],LL,[H|RL]):-H>=Pivot,partition2(Pivot,T,LL,RL).
 
 quicksort([],[]).
 quicksort(L,R):-L=[H|T],partition2(H,T,LT,RT),quicksort(LT,LR),quicksort(RT,RR),append2(LR, [H|RR], R).
+
+% Подмножество на лист:
+subset2([],[]).
+subset2([H|T],[H|R]):-not((member2(H,R))),subset2(T,R).
+subset2([_|T],R):-subset2(T,R).
+
+% Н-ти елемент
+% nthElement(X,Idx,List)
+nthElement(X,0,[X|_]).
+nthElement(X,N,[_|T]):-nthElement(X,M,T),N is M + 1.
