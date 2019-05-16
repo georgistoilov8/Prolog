@@ -25,3 +25,13 @@ append2([H|T],B,[H|R]):-append2(T,B,R).
 % member2(x,L).
 member2(X,[X|_]).
 member2(X,[H|T]):-X\=H,member2(X,T).
+
+% Последен елемент на списък
+% last2(X,L).
+last2(X,L):-append2(_,[X],L).
+%last2(X,L):-append2(_,[X|[]],L).
+
+% Дължина на списък
+% length2(L, N)
+length2([],0).
+length2([_|T], N):- length2(T,M), N is M+1.
