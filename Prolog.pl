@@ -105,3 +105,23 @@ isEqual(A,B):-isSubsetOf(A,B),isSubsetOf(B,A).
 removeDuplicates([],[]).
 removeDuplicates([H|T],[H|R]:-removeDuplicates(T,R),not(member2(H,R)).
 removeDuplicates([H|T], R):-removeDuplicates(T,R),member2(H,R).
+
+% Последователност(подредица
+% subsequence(L,R)
+subsequence([],[]).
+subsequence([H|T],[H|R]):-subsequence(T,R).
+subsequence([_|T], R):-subsequence(T,R).
+
+% Брой елементи
+% count(X,N,List)
+count(_, 0, []).
+count(X,N,[X|T]):-count(X,M,T),N is M + 1.
+count(X,N,[H|T]):-H\=X,count(X,N,T).
+
+countMax(X, N, L):-member2(X,L),count(X,N,L), not((member2(Y,L),count(Y,M,L), M > N)).
+
+% Палиндром
+% palindrom(L)
+palindrom([]).
+palindrom([_]).
+palindrom([H|T]):-append([H|R],[H],[H|T]),palindrom(R).
