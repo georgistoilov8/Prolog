@@ -32,3 +32,19 @@ sp(E,X,[Z|Rest],P):-X\=Z,member2([W,Z],E),not(member2(W,[Z|Rest])),sp(E,X,[W,X|R
 simplePath2([v,E],X,Y,P):-sp2(E,X,Y,[],P).
 sp2(_,Y,Y,Vis,Vis).
 sp2(E,Y,Z,Vis,P):-Y\=Z,member2([Z,W],E),not(member2(W,Vis)),append(Vis,[W], V1),sp2(E,W,Y,V1,P).
+
+isConnected([V,E]):-not((member2(X,V),member2(Y,V),not(simplePath([V,E],X,Y,_)))).
+isComplete([V,E]):-not((member2(X,V),member2(Y,V),not(member2([X,Y],E)))).
+isUndirected([V,E]):-not((member2([X,Y],E),not(member2([Y,X], E)))).
+isDirected([V,E]):-not(isUndirected([V,E])).
+isMultiGraph([V,E]):-remove2(Edge,E,NE),member(Edge,NE).
+hasCycle([V,E],[X]):-member2([X,X],E).
+hasCycle([V,E],[X|P]):-member2([X,Y]|E),X\=Y,simplePath([V,E],Y,X,P).
+
+% DFS в граф
+dfs([V,E],Root,R):-dfs(E,[Root],[],R).
+dfs(_,[],_,[]).
+dfs(E,[StackH|StackT], Visited,[[StackH,Next]|R]]):-genNext(E,StackH,[StackH|StackI],Visited,Next).
+dfs(E,[Next,StackH|StackI],Visited,R):-not(genNext(E,StackH,[StackH|StackI],Visited,_),dfs(E,StackI,[StackH|Visited],R).
+                                                            
+genNext(E,Current,Stack,Visited,Next):-member2([Current,Next],E),not(member2(Next,Visited)),not(member2(Next,Stack)).
