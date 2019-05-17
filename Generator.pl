@@ -20,3 +20,15 @@ between2(A,B,R):-A<B,C is A+1,between2(C,B,R).
 % Всички числа между две числа
 range(A,A,[A]).
 range(A,B,[A|R]):-A<B,C is A + 1,range(C,B,R).
+
+% Двойки числа
+pairs(A,B):-nat(N),between(0,N,A),B is N - A.
+
+% Генериаране на н-торка в определен интервал
+% getKS(K, S, L).
+getKS(1, S, [S]).
+getKS(K, S, [XI|R]):-K>1,between2(0,S,XI),T is S - XI, KR is K - 1, getKS(KR,T,R).
+
+% Генериране на всички н-торки
+genAllNatNumSeq([]).
+genAllNatNumSeq(L):-nat(N),between2(1,N,K),S is N - K,genKS(K, S, L).
