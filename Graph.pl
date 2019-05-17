@@ -48,3 +48,23 @@ dfs(E,[StackH|StackT], Visited,[[StackH,Next]|R]]):-genNext(E,StackH,[StackH|Sta
 dfs(E,[Next,StackH|StackI],Visited,R):-not(genNext(E,StackH,[StackH|StackI],Visited,_),dfs(E,StackI,[StackH|Visited],R).
                                                             
 genNext(E,Current,Stack,Visited,Next):-member2([Current,Next],E),not(member2(Next,Visited)),not(member2(Next,Stack)).
+
+% Хамилтонов път
+% hamiltonianPath([V,E],R)
+hamiltonianPath([V,E],R):-permutation2(V,R),not((append(_,[X,Y|_],R),not(member([X,Y],E)))),
+
+% Клика в граф
+% clique([V,E], C)
+clique([V,E], R):-subset(R,V),isComplete([C,E]).
+
+% Максимална клика
+% maxClique([V,E], C)
+maxClique([V,E],C):-clique([V,E],C),length(C,K),not((clique([V,E],C1),length(C1,K1),K1>K)).
+
+% "Критичен връх"
+% isCriticalVertex([V,E], X)
+isCriticalVertex([V,E],X):-remove2(X,V,NewV),not(isConnected([NewV,E])).
+
+crit([V,E],X):-crit([V,E],V,X).
+crit(_,[],[]).
+crit([V,E],[VH|VT],R):-crit([V,E],VT,R),not(isCriticalVertex([V,E],VH)).
