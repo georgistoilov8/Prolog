@@ -32,3 +32,14 @@ getKS(K, S, [XI|R]):-K>1,between2(0,S,XI),T is S - XI, KR is K - 1, getKS(KR,T,R
 % Генериране на всички н-торки
 genAllNatNumSeq([]).
 genAllNatNumSeq(L):-nat(N),between2(1,N,K),S is N - K,genKS(K, S, L).
+
+% Генериране на аритметична прогресия
+% genArithProg(Start,Diff,N, R)
+genArithProg(_,_,0,[]).
+genArithProg(Curr,Diff,N,[Curr|R]):-N>0,Next is Curr + Diff, NewN is N - 1, genArithProg(Next,Diff,NewN, R).
+
+% Премахване на подсписъци
+% flatten(L, R)
+flatten([],[]).
+flatten(A,[A]):-not(isList2(A)).
+flatten([H|T],R):-flatten(H,HR),flatten(T,TR),append2(HR,TR, R).
