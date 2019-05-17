@@ -43,3 +43,14 @@ genArithProg(Curr,Diff,N,[Curr|R]):-N>0,Next is Curr + Diff, NewN is N - 1, genA
 flatten([],[]).
 flatten(A,[A]):-not(isList2(A)).
 flatten([H|T],R):-flatten(H,HR),flatten(T,TR),append2(HR,TR, R).
+
+% Разделяне на лист
+% split(L,R)
+split([],[]).
+split(L,[A|R]):-append2(A,B,L),A\=[],split(B,R).
+
+% Генериране числа на Фибоначи
+% fib(R)
+fib(F):-fib(F,_).
+fib(0,1).
+fib(X,Y):-fib(Z,X),Y is X + Z.
