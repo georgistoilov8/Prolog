@@ -23,3 +23,12 @@ megaConcat([H|T],R):-megaConcat(T,TR),append2(H,TR,R).
 toSet([],[]).
 toSet([H|T],R):-member2(H,R),toSet(T,R).
 toSet([H|T],[H|R]):-not(member2(H,R)),toSet(T,R).
+
+% Прост път
+simplePath([v,E],X,Y,P):-sp(E,X,[Y],P).
+sp(_,X,[X|Rest],[X|Rest]).
+sp(E,X,[Z|Rest],P):-X\=Z,member2([W,Z],E),not(member2(W,[Z|Rest])),sp(E,X,[W,X|Rest],P).
+
+simplePath2([v,E],X,Y,P):-sp2(E,X,Y,[],P).
+sp2(_,Y,Y,Vis,Vis).
+sp2(E,Y,Z,Vis,P):-Y\=Z,member2([Z,W],E),not(member2(W,Vis)),append(Vis,[W], V1),sp2(E,W,Y,V1,P).
